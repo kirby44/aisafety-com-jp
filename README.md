@@ -1,17 +1,19 @@
-# AISafety.com
+# AISafety.com — JP fork
 
-A community resource website helping people find events, organizations, jobs, funding, and learning resources in AI safety. Migrated from WebFlow.
+A Japanese version of [AISafety.com/map](https://aisafety.com/map), focused on the Japan AI safety ecosystem.
 
-## Tech Stack
+Live: https://aisafety-com-jp.vercel.app/map
 
-| What       | Technology                          |
-| ---------- | ----------------------------------- |
-| Framework  | Next.js 16 (App Router)             |
-| Language   | TypeScript                          |
-| Styling    | Constraint-based CSS (not Tailwind) |
-| Data       | Airtable                            |
-| Map        | D3.js                               |
-| Deployment | Vercel                              |
+Forked from [StampyAI/AISafety.com](https://github.com/StampyAI/AISafety.com) (MIT-licensed). Thanks to Bryce Robertson and the Stampy team for sharing the code.
+
+## What's different from upstream
+
+- Static JP organisations data in `src/lib/data/jp-map.ts` (replaces upstream's Airtable fetch)
+- All non-`/map` pages stripped (this fork is just the map)
+- Logo scale bumped to `LOGO_GLOBAL_SCALE = 3.0` since the JP map is sparse
+- `/` redirects to `/map`
+
+To swap back to the upstream Airtable adapter, change the import in `src/app/map/page.tsx` from `'@/lib/data/jp-map'` to `'@/lib/data/map'` and provide `AIRTABLE_TOKEN` + `AIRTABLE_BASE_ID`.
 
 ## Getting Started
 
@@ -21,12 +23,7 @@ npm install
 npm run dev
 ```
 
-Create `.env.local`:
-
-```
-AIRTABLE_TOKEN=your_token
-AIRTABLE_BASE_ID=your_base_id
-```
+No `.env.local` needed — the JP fork uses static data.
 
 ## Commands
 
@@ -38,31 +35,8 @@ npm run format       # Format code
 npm run type-check   # Type check
 ```
 
-## Project Structure
+## License
 
-```
-src/
-├── app/                    # Pages and API routes
-│   ├── page.tsx            # Homepage
-│   ├── layout.tsx          # Root layout (nav + footer)
-│   ├── globals.css         # All global styles
-│   ├── map/                # Interactive field map (D3.js)
-│   ├── events-and-training/
-│   ├── api/                # Backend API routes
-│   │   ├── ...
-├── components/             # Reusable UI pieces
-│   ├── ...
-public/
-├── images/                 # Icons, logos, background images
-docs/                       # Detailed documentation
-backup/
-├── *.html                  # Original WebFlow exports (reference only)
-```
+MIT — see [LICENSE](./LICENSE).
 
-## Documentation
-
-- [Project Overview](./docs/project-overview.md)
-- [Architecture](./docs/architecture.md)
-- [Development Guide](./docs/development-guide.md)
-- [CSS Guidelines](./docs/css-guidelines.md)
-- [CLAUDE.md](./docs/claude.md) — For AI (humans don't read)
+Original work © 2026 StampyAI. JP fork modifications by Kazuki Kimura.
