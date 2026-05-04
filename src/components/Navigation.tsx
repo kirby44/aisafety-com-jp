@@ -11,35 +11,7 @@ import {
 } from 'react'
 import styles from './Navigation.module.css'
 
-const navItems = [
-  {
-    href: '/events-and-training',
-    label: 'Events & training',
-    icon: 'calendar.svg',
-  },
-  { href: '/map', label: 'Field map', icon: 'map.svg' },
-  { href: '/communities', label: 'Communities', icon: 'globe.svg' },
-  { href: '/self-study', label: 'Self-study', icon: 'book.svg' },
-  { href: '/jobs', label: 'Jobs', icon: 'briefcase.svg' },
-  { href: '/funding', label: 'Funding', icon: 'coins.svg' },
-  {
-    href: '/media-channels',
-    label: 'Media channels',
-    icon: 'megaphone.svg',
-  },
-  { href: '/advisors', label: 'Advisors', icon: 'person.svg' },
-  {
-    href: '/projects',
-    label: 'Volunteer projects',
-    icon: 'clipboard.svg',
-  },
-  {
-    href: '/founders',
-    label: 'Founder toolkit',
-    icon: 'rocket.svg',
-  },
-  { href: '/donation-guide', label: 'Donation guide', icon: 'heart.svg' },
-]
+const navItems = [{ href: '/map', label: 'Field map', icon: 'map.svg' }]
 
 const MIN_OVERFLOW = 5
 
