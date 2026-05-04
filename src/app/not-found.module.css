@@ -1,0 +1,15 @@
+/* ===============================
+   404 NOT FOUND PAGE STYLES
+   =============================== */
+
+.page-wrap {
+  width: 100vw;
+  max-width: 100%;
+  height: 70vh;
+  max-height: 100%;
+}
+
+.page-content {
+  width: 260px;
+  text-align: center;
+}

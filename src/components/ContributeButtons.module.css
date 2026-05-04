@@ -1,0 +1,15 @@
+.wrapper {
+  padding-top: 40px;
+  border-top: 1px solid var(--teal-700);
+  font-size: 16px;
+}
+
+.wrapper a {
+  display: block;
+  padding-bottom: 40px;
+  text-decoration: none;
+}
+
+.wrapper a:hover {
+  opacity: 0.8;
+}

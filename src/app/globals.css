@@ -1,0 +1,1397 @@
+/* ===============================
+   DESIGN SYSTEM - globals.css
+   ===============================
+
+   Table of Contents:
+   1. Variables (Design Tokens)
+   2. CSS Reset
+   3. Base Element Styles
+   4. Typography Classes
+   5. Color Utility Classes
+   6. Spacing Utility Classes
+   7. Layout Utility Classes
+   8. Display & Visibility Utilities
+   9. Button Styles
+   10. Form & Input Styles
+   11. Shadows & Effects
+   12. Layout Components (hero-bg, etc.)
+   13. Media Queries
+
+   =============================== */
+
+/* ===============================
+   1. VARIABLES (Design Tokens)
+   =============================== */
+
+:root {
+  /* Teal Scale */
+  --teal-100: #e3e5e6;
+  --teal-200: #c6cccc;
+  --teal-300: #aab2b3;
+  --teal-400: #8e999a;
+  --teal-500: #717f80;
+  --teal-600: #556667;
+  --teal-700: #394c4e;
+  --teal-750: #2a3f41;
+  --teal-800: #1c3334;
+  --teal-850: #0e2628;
+  --teal-900: #00191b;
+
+  /* Accent Colors */
+  --bright-teal-300: #a6dad9;
+  --bright-teal-500: #6cbdbb;
+  --bright-green: #7affb2;
+  --white: white;
+  --off-white: #f3f3f3;
+
+  /* Transitions */
+  --hover-transition: 0.1s ease-in-out;
+}
+
+/* ===============================
+   2. CSS RESET
+   =============================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/* Removed global scroll-behavior: smooth — it causes animated scroll-to-top
+   on page navigation. Smooth scrolling is applied only where needed (e.g.
+   anchor links) via the UpButton component. */
+
+*:focus-visible {
+  outline: 2px solid var(--bright-teal-500);
+  outline-offset: 2px;
+}
+
+/* ===============================
+   3. BASE ELEMENT STYLES
+   =============================== */
+
+body {
+  background-color: var(--teal-900);
+  background-image: url('/images/bg.svg');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 2028px 944px;
+  color: var(--white);
+  letter-spacing: -0.45px;
+  font-family: var(--font-inter), Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 160%;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 115%;
+  letter-spacing: -4.32px;
+  margin-left: -4px;
+  color: white;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: -1.4px;
+  color: white;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 125%;
+  letter-spacing: -1.1px;
+  color: white;
+}
+
+label {
+  display: block;
+}
+
+/* ===============================
+   4. TYPOGRAPHY CLASSES
+   =============================== */
+
+/* Default paragraph (18px) - inherits from body */
+
+.paragraph-small {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 165%;
+  letter-spacing: -0.3px;
+}
+
+.paragraph-small-bold {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 165%;
+  letter-spacing: -0.3px;
+}
+
+.paragraph-xs {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 167.5%;
+  letter-spacing: -0.2px;
+}
+
+.paragraph-xs-bold {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 167.5%;
+  letter-spacing: -0.2px;
+}
+
+.paragraph-default-bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.date-published {
+  text-align: right;
+  position: absolute;
+  inset: auto 24px 24px auto;
+}
+
+/* Text effects */
+.shadow-text {
+  text-shadow: 0 0 12px rgba(0, 25, 27, 0.8);
+}
+
+/* ===============================
+   5. COLOR UTILITY CLASSES
+   =============================== */
+
+/* Text colors */
+.color-teal-300 {
+  color: var(--teal-300);
+}
+.color-teal-400 {
+  color: var(--teal-400);
+}
+.color-teal {
+  color: var(--bright-teal-500);
+}
+.color-light-teal {
+  color: var(--bright-green);
+}
+.color-white {
+  color: #fff;
+}
+.color-grey {
+  color: #8e999a;
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color: rgba(122, 255, 178, 0.3);
+  text-underline-offset: 6px;
+  transition: all var(--hover-transition);
+}
+.underline:hover {
+  text-decoration-color: #fff;
+}
+
+/* ===============================
+   6. SPACING UTILITY CLASSES
+   =============================== */
+
+/* Padding Top */
+.padding-top-4px {
+  padding-top: 4px;
+}
+.padding-top-8px {
+  padding-top: 8px;
+}
+.padding-top-12px {
+  padding-top: 12px;
+}
+.padding-top-16px {
+  padding-top: 16px;
+}
+.padding-top-24px {
+  padding-top: 24px;
+}
+.padding-top-32px {
+  padding-top: 32px;
+}
+.padding-top-40px {
+  padding-top: 40px;
+}
+.padding-top-56px {
+  padding-top: 56px;
+}
+.padding-top-80px {
+  padding-top: 80px;
+}
+.padding-top-104px {
+  padding-top: 104px;
+}
+.padding-top-128px {
+  padding-top: 128px;
+}
+.padding-top-192px {
+  padding-top: 192px;
+}
+
+/* Padding Bottom */
+.padding-bottom-4px {
+  padding-bottom: 4px;
+}
+.padding-bottom-8px {
+  padding-bottom: 8px;
+}
+.padding-bottom-12px {
+  padding-bottom: 12px;
+}
+.padding-bottom-16px {
+  padding-bottom: 16px;
+}
+.padding-bottom-24px {
+  padding-bottom: 24px;
+}
+.padding-bottom-32px {
+  padding-bottom: 32px;
+}
+.padding-bottom-40px {
+  padding-bottom: 40px;
+}
+.padding-bottom-56px {
+  padding-bottom: 56px;
+}
+.padding-bottom-80px {
+  padding-bottom: 80px;
+}
+.padding-bottom-104px {
+  padding-bottom: 104px;
+}
+.padding-bottom-128px {
+  padding-bottom: 128px;
+}
+
+/* Padding Left */
+.padding-left-4px {
+  padding-left: 4px;
+}
+.padding-left-8px {
+  padding-left: 8px;
+}
+.padding-left-12px {
+  padding-left: 12px;
+}
+.padding-left-16px {
+  padding-left: 16px;
+}
+.padding-left-24px {
+  padding-left: 24px;
+}
+.padding-left-32px {
+  padding-left: 32px;
+}
+.padding-left-40px {
+  padding-left: 40px;
+}
+.padding-left-56px {
+  padding-left: 56px;
+}
+.padding-left-80px {
+  padding-left: 80px;
+}
+.padding-left-104px {
+  padding-left: 104px;
+}
+.padding-left-128px {
+  padding-left: 128px;
+}
+.padding-left-192px {
+  padding-left: 192px;
+}
+
+/* Padding Right */
+.padding-right-4px {
+  padding-right: 4px;
+}
+.padding-right-8px {
+  padding-right: 8px;
+}
+.padding-right-12px {
+  padding-right: 12px;
+}
+.padding-right-16px {
+  padding-right: 16px;
+}
+.padding-right-24px {
+  padding-right: 24px;
+}
+.padding-right-32px {
+  padding-right: 32px;
+}
+.padding-right-40px {
+  padding-right: 40px;
+}
+.padding-right-56px {
+  padding-right: 56px;
+}
+.padding-right-80px {
+  padding-right: 80px;
+}
+.padding-right-104px {
+  padding-right: 104px;
+}
+.padding-right-128px {
+  padding-right: 128px;
+}
+.padding-right-192px {
+  padding-right: 192px;
+}
+
+/* Margin Top */
+.margin-top-4px {
+  margin-top: 4px;
+}
+.margin-top-8px {
+  margin-top: 8px;
+}
+.margin-top-12px {
+  margin-top: 12px;
+}
+.margin-top-16px {
+  margin-top: 16px;
+}
+.margin-top-24px {
+  margin-top: 24px;
+}
+.margin-top-32px {
+  margin-top: 32px;
+}
+.margin-top-40px {
+  margin-top: 40px;
+}
+.margin-top-56px {
+  margin-top: 56px;
+}
+.margin-top-80px {
+  margin-top: 80px;
+}
+.margin-top-104px {
+  margin-top: 104px;
+}
+.margin-top-128px {
+  margin-top: 128px;
+}
+.margin-top-192px {
+  margin-top: 192px;
+}
+
+/* Margin Bottom */
+.margin-bottom-4px {
+  margin-bottom: 4px;
+}
+.margin-bottom-8px {
+  margin-bottom: 8px;
+}
+.margin-bottom-12px {
+  margin-bottom: 12px;
+}
+.margin-bottom-16px {
+  margin-bottom: 16px;
+}
+.margin-bottom-24px {
+  margin-bottom: 24px;
+}
+.margin-bottom-32px {
+  margin-bottom: 32px;
+}
+.margin-bottom-40px {
+  margin-bottom: 40px;
+}
+.margin-bottom-56px {
+  margin-bottom: 56px;
+}
+.margin-bottom-80px {
+  margin-bottom: 80px;
+}
+.margin-bottom-104px {
+  margin-bottom: 104px;
+}
+.margin-bottom-128px {
+  margin-bottom: 128px;
+}
+.margin-bottom-192px {
+  margin-bottom: 192px;
+}
+
+/* Margin Left */
+.margin-left-4px {
+  margin-left: 4px;
+}
+.margin-left-8px {
+  margin-left: 8px;
+}
+.margin-left-12px {
+  margin-left: 12px;
+}
+.margin-left-16px {
+  margin-left: 16px;
+}
+.margin-left-24px {
+  margin-left: 24px;
+}
+.margin-left-32px {
+  margin-left: 32px;
+}
+.margin-left-40px {
+  margin-left: 40px;
+}
+.margin-left-56px {
+  margin-left: 56px;
+}
+.margin-left-80px {
+  margin-left: 80px;
+}
+.margin-left-104px {
+  margin-left: 104px;
+}
+.margin-left-128px {
+  margin-left: 128px;
+}
+.margin-left-192px {
+  margin-left: 192px;
+}
+
+/* Margin Right */
+.margin-right-4px {
+  margin-right: 4px;
+}
+.margin-right-8px {
+  margin-right: 8px;
+}
+.margin-right-12px {
+  margin-right: 12px;
+}
+.margin-right-16px {
+  margin-right: 16px;
+}
+.margin-right-24px {
+  margin-right: 24px;
+}
+.margin-right-32px {
+  margin-right: 32px;
+}
+.margin-right-40px {
+  margin-right: 40px;
+}
+.margin-right-56px {
+  margin-right: 56px;
+}
+.margin-right-80px {
+  margin-right: 80px;
+}
+.margin-right-104px {
+  margin-right: 104px;
+}
+.margin-right-128px {
+  margin-right: 128px;
+}
+.margin-right-192px {
+  margin-right: 192px;
+}
+
+/* ===============================
+   7. LAYOUT UTILITY CLASSES
+   =============================== */
+
+/* Containers */
+
+.container-default {
+  max-width: 1056px;
+  margin: 0 auto;
+}
+
+.container-wide {
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-narrow {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Flex utilities - composable system */
+
+/* Display */
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+
+/* Direction */
+.flex-row {
+  flex-direction: row;
+}
+.flex-col {
+  flex-direction: column;
+}
+
+/* Align items (cross-axis) */
+.items-start {
+  align-items: flex-start;
+}
+.items-center {
+  align-items: center;
+}
+.items-end {
+  align-items: flex-end;
+}
+
+/* Justify content (main-axis) */
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* Gap */
+.gap-4px {
+  gap: 4px;
+}
+.gap-8px {
+  gap: 8px;
+}
+.gap-12px {
+  gap: 12px;
+}
+.gap-16px {
+  gap: 16px;
+}
+.gap-24px {
+  gap: 24px;
+}
+.gap-32px {
+  gap: 32px;
+}
+.gap-40px {
+  gap: 40px;
+}
+.gap-56px {
+  gap: 56px;
+}
+.gap-80px {
+  gap: 80px;
+}
+.gap-104px {
+  gap: 104px;
+}
+.gap-192px {
+  gap: 192px;
+}
+
+/* Width classes (12-column grid, 1056px max) */
+.width-1-col {
+  width: 37px;
+}
+.width-2-col {
+  width: 129px;
+}
+.width-3-col {
+  width: 222px;
+}
+.width-4-col {
+  width: 315px;
+}
+.width-5-col {
+  width: 407px;
+}
+.width-6-col {
+  width: 500px;
+}
+.width-7-col {
+  width: 593px;
+}
+.width-8-col {
+  width: 685px;
+}
+.width-9-col {
+  width: 778px;
+}
+.width-10-col {
+  width: 871px;
+}
+.width-11-col {
+  width: 963px;
+}
+.width-12-col {
+  width: 1056px;
+}
+
+/* Width classes – narrow grid (12-column, 880px max, 22px col + 56px gutter) */
+.width-1-col-narrow {
+  width: 22px;
+}
+.width-2-col-narrow {
+  width: 100px;
+}
+.width-3-col-narrow {
+  width: 178px;
+}
+.width-4-col-narrow {
+  width: 256px;
+}
+.width-5-col-narrow {
+  width: 334px;
+}
+.width-6-col-narrow {
+  width: 412px;
+}
+.width-7-col-narrow {
+  width: 490px;
+}
+.width-8-col-narrow {
+  width: 568px;
+}
+.width-9-col-narrow {
+  width: 646px;
+}
+.width-10-col-narrow {
+  width: 724px;
+}
+.width-11-col-narrow {
+  width: 802px;
+}
+.width-12-col-narrow {
+  width: 880px;
+}
+
+/* ===============================
+   8. DISPLAY & VISIBILITY UTILITIES
+   =============================== */
+
+/* Display */
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.display-inline {
+  display: inline;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background-color: var(--teal-700);
+}
+
+/* Cursor */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Opacity */
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-10 {
+  opacity: 0.1;
+}
+.opacity-20 {
+  opacity: 0.2;
+}
+.opacity-30 {
+  opacity: 0.3;
+}
+.opacity-40 {
+  opacity: 0.4;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.opacity-60 {
+  opacity: 0.6;
+}
+.opacity-70 {
+  opacity: 0.7;
+}
+.opacity-80 {
+  opacity: 0.8;
+}
+.opacity-90 {
+  opacity: 0.9;
+}
+.opacity-100 {
+  opacity: 1;
+}
+
+/* Hover effects */
+.hover-opacity-80:hover {
+  opacity: 0.8;
+}
+.hover-opacity-60:hover {
+  opacity: 0.6;
+}
+
+/* ===============================
+   9. BUTTON STYLES
+   =============================== */
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 8px;
+  height: 48px;
+  padding: 0 18px;
+  background-color: var(--white);
+  color: var(--teal-900);
+  border: none;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--hover-transition);
+}
+
+.button-primary:hover {
+  background-color: var(--off-white);
+}
+
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 18px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  transition: background-color var(--hover-transition);
+}
+
+.button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ===============================
+   10. FORM & INPUT STYLES
+   =============================== */
+
+.text-field {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  background-color: var(--teal-900);
+  border: 1px solid var(--teal-600);
+  border-radius: 16px;
+  color: var(--teal-400);
+  font-size: 18px;
+  letter-spacing: -0.45px;
+}
+
+.text-field:hover,
+.text-field:focus {
+  border-color: var(--teal-400);
+  outline: none;
+}
+
+.text-field::placeholder {
+  color: var(--teal-600);
+}
+
+.checkbox {
+  appearance: none;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  min-height: 24px;
+  margin: 0 8px 0 0;
+  background-color: transparent;
+  border: 1px solid var(--teal-600);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color var(--hover-transition);
+}
+
+.checkbox:hover {
+  border-color: var(--teal-400);
+}
+
+.checkbox:checked {
+  background-color: var(--bright-teal-500);
+  border-color: var(--bright-teal-500);
+  background-image: url('/images/check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.filter-count {
+  margin-left: 4px;
+  font-size: 13px;
+  line-height: 167.5%;
+  letter-spacing: -0.2px;
+  color: var(--teal-500);
+  opacity: 0.8;
+}
+
+/* ===============================
+   11. SHADOWS & EFFECTS
+   =============================== */
+
+.drop-shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.drop-shadow-light {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.drop-shadow-dark {
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(16px);
+}
+
+/* ===============================
+   12. LAYOUT COMPONENTS
+   =============================== */
+
+/* Shared card styles used across map, communities, self-study */
+.card {
+  position: relative;
+  padding: 40px;
+  background-color: var(--teal-850);
+  border: 1px solid var(--teal-700);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  will-change: transform;
+  transform: scale(1);
+  backface-visibility: hidden;
+  transition:
+    background-color var(--hover-transition),
+    transform var(--hover-transition);
+}
+
+.card:hover {
+  background-color: color-mix(in srgb, var(--teal-850) 60%, var(--teal-800));
+  transform: scale(1.015);
+}
+
+.card-static:hover {
+  transform: scale(1);
+}
+
+.featured-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 64px;
+  max-width: 64px;
+  height: 64px;
+  border-radius: 4px;
+}
+
+.card-image {
+  max-width: 64px;
+  max-height: 64px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.database-outer-grid {
+  display: grid;
+  grid-template-columns: 778px 222px;
+  gap: 56px;
+}
+
+.collection-list {
+  display: grid;
+  grid-template-columns: 369px 369px;
+  gap: 40px;
+}
+
+/* ===============================
+   13. MEDIA QUERIES
+   =============================== */
+
+/* tablet and smaller */
+@media (max-width: 991px) {
+  body {
+    letter-spacing: -0.3px;
+    font-size: 15px;
+    line-height: 165%;
+  }
+
+  h1 {
+    letter-spacing: -3.36px;
+    font-size: 56px;
+  }
+
+  h2 {
+    letter-spacing: -0.96px;
+    font-size: 24px;
+    line-height: 125%;
+  }
+
+  h3 {
+    letter-spacing: -0.8px;
+    font-size: 20px;
+    line-height: 130%;
+  }
+
+  .paragraph-xs {
+    font-size: 11px;
+    line-height: 170%;
+  }
+
+  .paragraph-xs-bold {
+    font-size: 11px;
+    line-height: 170%;
+  }
+
+  .paragraph-small {
+    letter-spacing: -0.2px;
+    font-size: 13px;
+    line-height: 167.5%;
+  }
+
+  .paragraph-small-bold {
+    letter-spacing: -0.2px;
+    font-size: 13px;
+    line-height: 167.5%;
+  }
+
+  .button-primary {
+    letter-spacing: -0.2px;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 13px;
+    line-height: 167.5%;
+  }
+
+  .button-secondary {
+    letter-spacing: -0.2px;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 13px;
+    line-height: 167.5%;
+  }
+
+  /* Add horizontal margins for tablet */
+  .container-default,
+  .container-narrow,
+  .container-wide {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* All column widths become full width on tablet and smaller */
+  .width-1-col,
+  .width-2-col,
+  .width-3-col,
+  .width-4-col,
+  .width-5-col,
+  .width-6-col,
+  .width-7-col,
+  .width-8-col,
+  .width-9-col,
+  .width-10-col,
+  .width-11-col,
+  .width-12-col,
+  .width-1-col-narrow,
+  .width-2-col-narrow,
+  .width-3-col-narrow,
+  .width-4-col-narrow,
+  .width-5-col-narrow,
+  .width-6-col-narrow,
+  .width-7-col-narrow,
+  .width-8-col-narrow,
+  .width-9-col-narrow,
+  .width-10-col-narrow,
+  .width-11-col-narrow,
+  .width-12-col-narrow {
+    width: 100%;
+  }
+
+  /* Opt-in vertical stacking on mobile */
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+
+  /* Global grid behavior: single column on mobile */
+  [class*='grid'],
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Shared layout component overrides */
+  .collection-list {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    padding: 32px;
+  }
+
+  /* Spacing responsive overrides: ~60-65% of desktop values */
+  /* Padding Top - responsive */
+  .padding-top-24px {
+    padding-top: 16px;
+  }
+
+  .padding-top-32px {
+    padding-top: 20px;
+  }
+
+  .padding-top-40px {
+    padding-top: 28px;
+  }
+
+  .padding-top-56px {
+    padding-top: 40px;
+  }
+
+  .padding-top-80px {
+    padding-top: 48px;
+  }
+
+  .padding-top-104px {
+    padding-top: 64px;
+  }
+
+  .padding-top-128px {
+    padding-top: 80px;
+  }
+
+  .padding-top-192px {
+    padding-top: 96px;
+  }
+
+  /* Padding Bottom - responsive */
+  .padding-bottom-8px {
+    padding-bottom: 6px;
+  }
+
+  .padding-bottom-12px {
+    padding-bottom: 8px;
+  }
+
+  .padding-bottom-16px {
+    padding-bottom: 12px;
+  }
+
+  .padding-bottom-24px {
+    padding-bottom: 16px;
+  }
+
+  .padding-bottom-32px {
+    padding-bottom: 20px;
+  }
+
+  .padding-bottom-40px {
+    padding-bottom: 28px;
+  }
+
+  .padding-bottom-56px {
+    padding-bottom: 40px;
+  }
+
+  .padding-bottom-80px {
+    padding-bottom: 40px;
+  }
+
+  .padding-bottom-104px {
+    padding-bottom: 64px;
+  }
+
+  .padding-bottom-128px {
+    padding-bottom: 80px;
+  }
+
+  /* Margin Top - responsive */
+  .margin-top-24px {
+    margin-top: 16px;
+  }
+
+  .margin-top-32px {
+    margin-top: 20px;
+  }
+
+  .margin-top-40px {
+    margin-top: 28px;
+  }
+
+  .margin-top-56px {
+    margin-top: 40px;
+  }
+
+  .margin-top-80px {
+    margin-top: 48px;
+  }
+
+  .margin-top-104px {
+    margin-top: 64px;
+  }
+
+  .margin-top-128px {
+    margin-top: 80px;
+  }
+
+  .margin-top-192px {
+    margin-top: 96px;
+  }
+
+  /* Margin Bottom - responsive */
+  .margin-bottom-24px {
+    margin-bottom: 16px;
+  }
+
+  .margin-bottom-32px {
+    margin-bottom: 20px;
+  }
+
+  .margin-bottom-40px {
+    margin-bottom: 28px;
+  }
+
+  .margin-bottom-56px {
+    margin-bottom: 40px;
+  }
+
+  .margin-bottom-80px {
+    margin-bottom: 48px;
+  }
+
+  .margin-bottom-104px {
+    margin-bottom: 64px;
+  }
+
+  .margin-bottom-128px {
+    margin-bottom: 56px;
+  }
+
+  .margin-bottom-192px {
+    margin-bottom: 96px;
+  }
+
+  /* Margin Left - responsive */
+  .margin-left-24px {
+    margin-left: 16px;
+  }
+
+  .margin-left-32px {
+    margin-left: 20px;
+  }
+
+  .margin-left-40px {
+    margin-left: 28px;
+  }
+
+  .margin-left-56px {
+    margin-left: 40px;
+  }
+
+  .margin-left-80px {
+    margin-left: 48px;
+  }
+
+  .margin-left-104px {
+    margin-left: 64px;
+  }
+
+  .margin-left-192px {
+    margin-left: 96px;
+  }
+
+  /* Margin Right - responsive */
+  .margin-right-24px {
+    margin-right: 16px;
+  }
+
+  .margin-right-32px {
+    margin-right: 20px;
+  }
+
+  .margin-right-40px {
+    margin-right: 28px;
+  }
+
+  .margin-right-56px {
+    margin-right: 40px;
+  }
+
+  .margin-right-80px {
+    margin-right: 48px;
+  }
+
+  .margin-right-104px {
+    margin-right: 64px;
+  }
+
+  .margin-right-192px {
+    margin-right: 96px;
+  }
+
+  /* Padding Left - responsive */
+  .padding-left-24px {
+    padding-left: 16px;
+  }
+
+  .padding-left-32px {
+    padding-left: 20px;
+  }
+
+  .padding-left-40px {
+    padding-left: 28px;
+  }
+
+  .padding-left-56px {
+    padding-left: 40px;
+  }
+
+  .padding-left-80px {
+    padding-left: 48px;
+  }
+
+  .padding-left-104px {
+    padding-left: 64px;
+  }
+
+  .padding-left-192px {
+    padding-left: 96px;
+  }
+
+  /* Padding Right - responsive */
+  .padding-right-24px {
+    padding-right: 16px;
+  }
+
+  .padding-right-32px {
+    padding-right: 20px;
+  }
+
+  .padding-right-40px {
+    padding-right: 28px;
+  }
+
+  .padding-right-56px {
+    padding-right: 40px;
+  }
+
+  .padding-right-80px {
+    padding-right: 48px;
+  }
+
+  .padding-right-104px {
+    padding-right: 64px;
+  }
+
+  .padding-right-192px {
+    padding-right: 96px;
+  }
+
+  /* Gap - responsive */
+  .gap-24px {
+    gap: 16px;
+  }
+
+  .gap-32px {
+    gap: 20px;
+  }
+
+  .gap-40px {
+    gap: 28px;
+  }
+
+  .gap-56px {
+    gap: 24px;
+  }
+
+  .gap-80px {
+    gap: 48px;
+  }
+
+  .gap-104px {
+    gap: 64px;
+  }
+
+  .gap-192px {
+    gap: 96px;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-attribution {
+    display: none;
+  }
+}

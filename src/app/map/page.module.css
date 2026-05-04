@@ -1,0 +1,136 @@
+/* D3 Map Container - full viewport minus navbar */
+.map-container {
+  width: 100%;
+  height: calc(100vh - 88px);
+  min-height: 600px;
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.map-container svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Map zoom controls - bottom-right on both desktop and mobile */
+.map-controls {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+
+.map-control-group {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  background-color: #0e2628;
+  border: 1px solid #394c4e;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0px 12px 24px 0px rgba(0, 25, 27, 0.5);
+}
+
+.map-control-group:hover {
+  background-color: #1c3334;
+}
+
+.map-control-button {
+  width: 100%;
+  height: 40px;
+  background-color: #0e2628;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--hover-transition);
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-control-button svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.map-control-button:hover {
+  background-color: #1c3334;
+}
+
+.map-control-button + .map-control-button {
+  border-top: 1px solid #394c4e;
+}
+
+/* Map tooltip — matches communities mapbox-tooltip */
+.map-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background-color: var(--teal-850);
+  border: 1px solid var(--teal-700);
+  border-radius: 8px;
+  padding: 12px 16px;
+  max-width: 300px;
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+  z-index: 1000;
+  text-align: left;
+}
+
+.map-tooltip strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 165%;
+  letter-spacing: -0.3px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.map-tooltip span {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 167.5%;
+  letter-spacing: -0.2px;
+  color: var(--teal-300);
+}
+
+/* Map icon hover effect (matching Webflow) */
+.map-container :global(.mapItem) {
+  transition: transform 0.3s;
+}
+
+.map-container :global(.mapItem:hover) {
+  transform: scale(1.2);
+}
+
+/* Map wrapper for positioning controls */
+.map-wrapper {
+  position: relative;
+}
+
+/* View cards button - matches WebFlow style */
+.scroll-button {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1000;
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+}
+
+@media (max-width: 991px) {
+  .map-container {
+    /* Fill the visible viewport minus the 88px navbar. dvh accounts for
+       mobile browser chrome so the View cards button stays on-screen. */
+    height: calc(100dvh - 88px);
+    min-height: 0;
+  }
+}

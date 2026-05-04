@@ -1,0 +1,14 @@
+/* UpButton Component Styles */
+
+.up-button {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  padding: 9px 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}

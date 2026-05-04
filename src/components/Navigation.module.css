@@ -1,0 +1,245 @@
+/* Navigation Component Styles */
+
+.nav-spacer {
+  height: 88px;
+}
+
+.nav {
+  z-index: 2147483647;
+  background-color: transparent;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  position: relative;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  flex-wrap: nowrap;
+  opacity: 0;
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.hamburger {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.hamburger-bar {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  background-color: white;
+  border-radius: 1px;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.hamburger-bar:nth-child(1) {
+  top: 6px;
+}
+
+.hamburger-bar:nth-child(2) {
+  top: 11px;
+}
+
+.hamburger-bar:nth-child(3) {
+  top: 16px;
+}
+
+.hamburger-open .hamburger-bar:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.hamburger-open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-open .hamburger-bar:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.nav-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding-left: 4px;
+  padding-right: 16px;
+  border: 1px solid rgba(122, 255, 178, 0.3);
+  border-radius: 20px;
+  flex: none;
+  max-width: 100%;
+  transition: all var(--hover-transition);
+}
+
+.nav-item-last {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(122, 255, 178, 0.3);
+  border-radius: 20px;
+  transition: all var(--hover-transition);
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background-color: rgb(14, 38, 40);
+  border-radius: 16px;
+  padding: 24px 24px 16px;
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+  width: 266px;
+  z-index: 5;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding-left: 4px;
+  padding-right: 16px;
+  border: 1px solid rgba(122, 255, 178, 0.3);
+  border-radius: 20px;
+  max-width: 100%;
+  transition: all var(--hover-transition);
+}
+
+.nav-dropdown-item:hover {
+  background-color: var(--teal-850);
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+}
+
+.nav-item:hover,
+.nav-item-last:hover {
+  background-color: var(--teal-850);
+  box-shadow: 0 12px 24px rgba(0, 25, 27, 0.5);
+  cursor: pointer;
+}
+
+.nav-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-fixed {
+  position: sticky;
+  top: 0;
+}
+
+:global(html.is-reload) .nav-fixed {
+  visibility: hidden;
+}
+
+.nav-blur {
+  background-color: rgba(0, 25, 27, 0.4);
+  backdrop-filter: blur(16px);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .nav {
+    padding: 24px 6.4vw;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(5, 24, 26, 0.8);
+    backdrop-filter: blur(16px);
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .mobile-menu-visible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 6.4vw;
+    overflow-y: auto;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .mobile-menu-visible .mobile-menu-items {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 6.4vw;
+  }
+
+  .mobile-menu .nav-item {
+    width: 100%;
+    height: 40px;
+    padding-left: 4px;
+    border-radius: 20px;
+  }
+}
