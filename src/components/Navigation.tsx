@@ -167,14 +167,21 @@ export default function Navigation({
     <>
       <div ref={navOuterRef} className={`${styles.nav} ${styles['nav-fixed']}`}>
         <div className={styles['nav-container']}>
-          <Link href="/" className="padding-right-24px">
-            <Image
-              src="/images/logo.svg"
-              alt="AI Safety logo"
-              width={139}
-              height={24}
-              className="block"
-            />
+          <Link
+            href="https://www.aisafety.com/map"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="padding-right-24px"
+            style={{
+              color: 'var(--bright-teal-300)',
+              fontSize: '20px',
+              fontWeight: 700,
+              lineHeight: '24px',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            World Map ↗
           </Link>
 
           <nav ref={navRef} className={styles['nav-menu']}>
@@ -261,14 +268,21 @@ export default function Navigation({
         className={`${styles['mobile-menu']} ${isMenuOpen ? styles['mobile-menu-visible'] : ''}`}
       >
         <div className={styles['mobile-menu-header']}>
-          <Link href="/" onClick={() => setIsMenuOpen(false)}>
-            <Image
-              src="/images/logo.svg"
-              alt="AI Safety logo"
-              width={139}
-              height={24}
-              className="block"
-            />
+          <Link
+            href="https://www.aisafety.com/map"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              color: 'var(--bright-teal-300)',
+              fontSize: '20px',
+              fontWeight: 700,
+              lineHeight: '24px',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            World Map ↗
           </Link>
           <button
             className={styles['menu-button']}
