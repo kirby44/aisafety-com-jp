@@ -1,7 +1,7 @@
 import { fetchAirtableRecords } from './airtable'
 
-const TABLE_ID = 'tblvzbGL9q9dOO9Nc'
-const VIEW_ID = 'viwJgtDFDmaP8PyoI'
+const TABLE_ID = 'tblBBaYyXaEQ7vsqm'
+const VIEW_ID = 'viwh7TofyxVBFq705'
 
 const MAGIC_ROW_NAMES = [
   'Merch',

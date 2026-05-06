@@ -1,7 +1,5 @@
 import MapClient from './MapClient'
-// JP fork: pulling from a static JP data file instead of upstream Airtable.
-// Swap back to '@/lib/data/map' to use the upstream Airtable adapter.
-import { getMapData } from '@/lib/data/jp-map'
+import { getMapData } from '@/lib/data/map'
 
 export const metadata = {
   title: 'Field Map – AISafety.com',
