@@ -142,6 +142,5 @@ export async function getMapData(): Promise<MapData> {
     records: JP_ORGS,
     lastUpdated: '2026-05-04',
     suggestEntryLink: '#',
-    suggestCorrectionLink: '#',
   }
 }

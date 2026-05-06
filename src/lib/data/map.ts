@@ -3,12 +3,7 @@ import { fetchAirtableRecords } from './airtable'
 const TABLE_ID = 'tblBBaYyXaEQ7vsqm'
 const VIEW_ID = 'viwh7TofyxVBFq705'
 
-const MAGIC_ROW_NAMES = [
-  'Merch',
-  'Last updated',
-  'Suggest correction',
-  'Suggest entry',
-]
+const MAGIC_ROW_NAMES = ['Merch', 'Last updated', 'Suggest entry']
 
 interface AirtableRecord {
   fields: {
@@ -52,7 +47,6 @@ export interface MapData {
   records: MapOrg[]
   lastUpdated: string | null
   suggestEntryLink: string
-  suggestCorrectionLink: string
 }
 
 const FIELD_LIST = [
@@ -137,7 +131,6 @@ export async function getMapData(): Promise<MapData> {
   const allRecords: MapOrg[] = []
   let lastUpdated: string | null = null
   let suggestEntryLink = '/map/suggest'
-  let suggestCorrectionLink = '#'
 
   for (const record of raw) {
     const fields = record.fields as AirtableRecord['fields']
@@ -157,8 +150,6 @@ export async function getMapData(): Promise<MapData> {
 
     if (title === 'Suggest entry' && fields.Link) {
       suggestEntryLink = fields.Link
-    } else if (title === 'Suggest correction' && fields.Link) {
-      suggestCorrectionLink = fields.Link
     }
 
     let category = ''
@@ -227,6 +218,5 @@ export async function getMapData(): Promise<MapData> {
     records: allRecords,
     lastUpdated,
     suggestEntryLink,
-    suggestCorrectionLink,
   }
 }

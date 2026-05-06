@@ -8,15 +8,13 @@ export const metadata = {
 }
 
 export default async function MapPage() {
-  const { records, lastUpdated, suggestEntryLink, suggestCorrectionLink } =
-    await getMapData()
+  const { records, lastUpdated, suggestEntryLink } = await getMapData()
 
   return (
     <MapClient
       orgs={records}
       lastUpdated={lastUpdated}
       suggestEntryLink={suggestEntryLink}
-      suggestCorrectionLink={suggestCorrectionLink}
     />
   )
 }

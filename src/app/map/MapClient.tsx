@@ -65,14 +65,12 @@ interface MapClientProps {
   orgs: MapOrg[]
   lastUpdated: string | null
   suggestEntryLink: string
-  suggestCorrectionLink: string
 }
 
 export default function MapClient({
   orgs,
   lastUpdated,
   suggestEntryLink,
-  suggestCorrectionLink,
 }: MapClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -307,14 +305,12 @@ export default function MapClient({
             </FilterSidebar>
             <ContributeButtons
               suggestEntryUrl={suggestEntryLink}
-              suggestCorrectionUrl={suggestCorrectionLink}
-              noun="listing"
               suggestEntryDescription="Suggest a resource to be published here"
               extraLinks={[
                 {
                   label: 'View raw data',
                   description: 'See the database in Airtable',
-                  url: 'https://airtable.com/appF8XfZUGXtfi40E/shrLojIEOsNCKg1BL',
+                  url: 'https://airtable.com/app7SrMiNyaAyXB2L/shrRSvwCS5BGzuYYe',
                 },
               ]}
             />
