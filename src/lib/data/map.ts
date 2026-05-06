@@ -147,6 +147,10 @@ export async function getMapData(): Promise<MapData> {
 
     const isMagic = MAGIC_ROW_NAMES.includes(title)
 
+    // Skip submissions that haven't been reviewed yet. The public Airtable
+    // form sets Status=Pending; only Active/Inactive rows render on the map.
+    if (!isMagic && fields.Status === 'Pending') continue
+
     if (title === 'Last updated' && fields.Description) {
       lastUpdated = fields.Description
     }
