@@ -19,6 +19,7 @@ interface AirtableRecord {
     Link?: string
     'Short URL'?: string
     'Date added'?: string
+    'Active since'?: string
     x?: number
     y?: number
     Scale?: string
@@ -40,6 +41,9 @@ export interface MapOrg {
   x: number | null
   y: number | null
   scale: string | null
+  // ISO date the entity started operating. Drives the map timeline; rows
+  // without it are treated as always present rather than never present.
+  activeSince: string | null
   isMagic: boolean
 }
 
@@ -62,6 +66,7 @@ const FIELD_LIST = [
   'Link',
   'Short URL',
   'Date added',
+  'Active since',
   'x',
   'y',
   'Scale',
@@ -189,6 +194,7 @@ export async function getMapData(): Promise<MapData> {
       x: fields.x ?? null,
       y: fields.y ?? null,
       scale: fields.Scale || null,
+      activeSince: fields['Active since'] || null,
       isMagic,
     })
   }

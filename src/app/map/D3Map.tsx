@@ -19,10 +19,14 @@ interface MapOrg {
   x: number | null
   y: number | null
   scale: string | null
+  activeSince: string | null
 }
 
 interface D3MapProps {
   orgs: MapOrg[]
+  // 'YYYY-MM' — hide entities that weren't active yet in that month. null
+  // shows everything.
+  cutoffMonth?: string | null
 }
 
 // Map constants from WebFlow
@@ -72,7 +76,14 @@ const AREA_LABELS = [
   { label: 'Gone Graveyard', x: 56, y: 30 },
 ]
 
-export default function D3Map({ orgs }: D3MapProps) {
+// An entity with no 'Active since' predates the timeline as far as we know,
+// so it always shows rather than never showing.
+function isActiveAt(activeSince: string | null, cutoffMonth?: string | null) {
+  if (!cutoffMonth || !activeSince) return true
+  return activeSince.slice(0, 7) <= cutoffMonth
+}
+
+export default function D3Map({ orgs, cutoffMonth }: D3MapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
 
@@ -283,6 +294,7 @@ export default function D3Map({ orgs }: D3MapProps) {
       const itemGroup = svgGroup
         .append('g')
         .attr('transform', `translate(${xPos}, ${yPos})`)
+        .attr('data-org-id', org.id)
       // QA: Items with no real link (e.g. "Last updated") should render
       // on the map but not be clickable
       const hasLink = org.link && org.link !== '#'
@@ -455,6 +467,32 @@ export default function D3Map({ orgs }: D3MapProps) {
       }
     }
   }, [orgs])
+
+  // Timeline visibility. Kept out of the render effect above so scrubbing
+  // fades icons in and out instead of tearing down and rebuilding the SVG
+  // (which would refetch every logo and reset the user's zoom).
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const activeById = new Map(
+      orgs.map(org => [org.id, isActiveAt(org.activeSince, cutoffMonth)])
+    )
+
+    d3.select(container)
+      .selectAll<SVGGElement, unknown>('[data-org-id]')
+      .each(function () {
+        const id = this.getAttribute('data-org-id')
+        const visible = id ? (activeById.get(id) ?? true) : true
+        const node = d3.select(this)
+        // Hidden icons must not swallow clicks or fire tooltips.
+        node.style('pointer-events', visible ? 'auto' : 'none')
+        // Plain style set, faded by a CSS transition (see page.module.css).
+        // A d3 transition would be restarted by every playback step before it
+        // could finish, leaving icons stuck at partial opacity.
+        node.style('opacity', visible ? 1 : 0)
+      })
+  }, [orgs, cutoffMonth])
 
   return (
     <>

@@ -2,11 +2,12 @@
 
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { useState, useMemo, useRef, useLayoutEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react'
 import FilterGroup from '@/components/FilterGroup'
 import FilterSidebar from '@/components/FilterSidebar'
 import ContributeButtons from '@/components/ContributeButtons'
 import { trackListingClick } from '@/lib/analytics'
+import Timeline, { formatMonth, monthRange } from './Timeline'
 import styles from './page.module.css'
 
 const D3Map = dynamic(() => import('./D3Map'), {
@@ -58,8 +59,14 @@ interface MapOrg {
   x: number | null
   y: number | null
   scale: string | null
+  activeSince: string | null
   isMagic: boolean
 }
+
+// Dwell time per month while the timeline is playing: quick through empty
+// months, slower on the ones where an entity arrives.
+const PLAY_STEP_MS = 90
+const PLAY_EVENT_MS = 850
 
 interface MapClientProps {
   orgs: MapOrg[]
@@ -77,6 +84,68 @@ export default function MapClient({
   const [showActive, setShowActive] = useState(true)
   const [showInactive, setShowInactive] = useState(false)
   const mapWrapperRef = useRef<HTMLDivElement>(null)
+
+  const mapOrgs = useMemo(() => {
+    return orgs.filter(org => org.x !== null && org.y !== null)
+  }, [orgs])
+
+  // Timeline runs from the earliest 'Active since' to the latest, one step per
+  // month. Rows without a date sit outside the timeline and always render.
+  const months = useMemo(() => {
+    const dated = mapOrgs
+      .map(org => org.activeSince)
+      .filter((d): d is string => Boolean(d))
+      .map(d => d.slice(0, 7))
+      .sort()
+    if (dated.length === 0) return []
+    return monthRange(dated[0], dated[dated.length - 1])
+  }, [mapOrgs])
+
+  // Default to the present: the map looks the same as before until you scrub.
+  const [monthIndex, setMonthIndex] = useState(0)
+  const [playing, setPlaying] = useState(false)
+
+  useEffect(() => {
+    setMonthIndex(Math.max(0, months.length - 1))
+  }, [months])
+
+  // Months in which something actually joins the map. Playback lingers on
+  // these and races through the quiet stretches in between — otherwise the
+  // three-year gap before the ecosystem gets going plays as dead air.
+  const eventMonths = useMemo(() => {
+    return new Set(
+      mapOrgs
+        .map(org => org.activeSince)
+        .filter((d): d is string => Boolean(d))
+        .map(d => d.slice(0, 7))
+    )
+  }, [mapOrgs])
+
+  useEffect(() => {
+    if (!playing || monthIndex >= months.length - 1) return
+    const next = monthIndex + 1
+    const delay = eventMonths.has(months[next]) ? PLAY_EVENT_MS : PLAY_STEP_MS
+    const timer = setTimeout(() => {
+      setMonthIndex(next)
+      if (next >= months.length - 1) setPlaying(false)
+    }, delay)
+    return () => clearTimeout(timer)
+  }, [playing, monthIndex, months, eventMonths])
+
+  const cutoffMonth = months.length > 0 ? months[monthIndex] : null
+
+  const visibleOnMapCount = useMemo(() => {
+    if (!cutoffMonth) return mapOrgs.length
+    return mapOrgs.filter(
+      org => !org.activeSince || org.activeSince.slice(0, 7) <= cutoffMonth
+    ).length
+  }, [mapOrgs, cutoffMonth])
+
+  const togglePlay = () => {
+    // Replay from the start once the run has finished.
+    if (!playing && monthIndex >= months.length - 1) setMonthIndex(0)
+    setPlaying(!playing)
+  }
 
   const scrollToCards = () => {
     if (!mapWrapperRef.current) return
@@ -141,10 +210,6 @@ export default function MapClient({
     })
   }, [orgs, searchQuery, selectedCategories, showActive, showInactive])
 
-  const mapOrgs = useMemo(() => {
-    return orgs.filter(org => org.x !== null && org.y !== null)
-  }, [orgs])
-
   const categoryCounts = useMemo(() => {
     return orgs.reduce(
       (counts, org) => {
@@ -195,7 +260,18 @@ export default function MapClient({
     <>
       <div className="padding-bottom-24px">
         <div ref={mapWrapperRef} className={styles['map-wrapper']}>
-          <D3Map orgs={mapOrgs} />
+          <D3Map orgs={mapOrgs} cutoffMonth={cutoffMonth} />
+          <Timeline
+            months={months}
+            index={monthIndex}
+            onIndexChange={index => {
+              setPlaying(false)
+              setMonthIndex(index)
+            }}
+            playing={playing}
+            onPlayToggle={togglePlay}
+            visibleCount={visibleOnMapCount}
+          />
           <button
             onClick={scrollToCards}
             className={`button-primary ${styles['scroll-button']}`}
@@ -268,6 +344,16 @@ export default function MapClient({
                     Category
                   </p>
                   <p className="paragraph-small">{org.category}</p>
+                  {org.activeSince && (
+                    <>
+                      <p className="paragraph-xs-bold color-teal-400 padding-bottom-4px padding-top-16px">
+                        Active since
+                      </p>
+                      <p className="paragraph-small">
+                        {formatMonth(org.activeSince.slice(0, 7))}
+                      </p>
+                    </>
+                  )}
                 </a>
               ))}
               {filteredOrgs.length === 0 && (

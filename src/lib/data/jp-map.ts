@@ -25,6 +25,7 @@ const JP_ORGS: MapOrg[] = [
     x: 37,
     y: 8,
     scale: 'Large',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -43,6 +44,7 @@ const JP_ORGS: MapOrg[] = [
     x: 48,
     y: 7,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -61,6 +63,7 @@ const JP_ORGS: MapOrg[] = [
     x: 30,
     y: 17,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -79,6 +82,7 @@ const JP_ORGS: MapOrg[] = [
     x: 24,
     y: 20,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -97,6 +101,7 @@ const JP_ORGS: MapOrg[] = [
     x: 47,
     y: 13,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -115,6 +120,7 @@ const JP_ORGS: MapOrg[] = [
     x: 15,
     y: 20,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
   {
@@ -133,6 +139,7 @@ const JP_ORGS: MapOrg[] = [
     x: 52,
     y: 18,
     scale: 'Medium',
+    activeSince: null,
     isMagic: false,
   },
 ]
