@@ -46,6 +46,12 @@
 
   /* Transitions */
   --hover-transition: 0.1s ease-in-out;
+
+  /* Navigation height. The compact variant is used on the map page at mobile
+     widths, where the map — not the nav — is the point of the page. Both
+     Navigation.module.css and the map's .map-container depend on these. */
+  --nav-height: 88px;
+  --nav-height-compact: 58px;
 }
 
 /* ===============================

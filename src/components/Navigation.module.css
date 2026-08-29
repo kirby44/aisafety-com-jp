@@ -181,6 +181,18 @@
     padding: 24px 6.4vw;
   }
 
+  /* Compact variant (map page): trades nav chrome for map. Heights here must
+     add up to --nav-height-compact, which the map container subtracts from
+     the viewport. */
+  .nav-compact {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .nav-compact .menu-button {
+    padding: 6px 12px;
+  }
+
   .nav-menu {
     display: none;
   }

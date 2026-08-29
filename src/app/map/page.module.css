@@ -1,7 +1,7 @@
 /* D3 Map Container - full viewport minus navbar */
 .map-container {
   width: 100%;
-  height: calc(100vh - 88px);
+  height: calc(100vh - var(--nav-height));
   min-height: 600px;
   position: relative;
   background-color: transparent;
@@ -268,7 +268,12 @@
   /* Sits above the View cards button and zoom controls rather than between
      them — there isn't room for three controls on one row. */
   .timeline {
-    bottom: 84px;
+    /* The bottom edge already carries View cards and the zoom controls, so the
+       scrubber moves to the free top-left corner. */
+    top: 16px;
+    bottom: auto;
+    left: 16px;
+    transform: none;
   }
 
   .timeline-controls {
@@ -289,9 +294,17 @@
   }
 
   .map-container {
-    /* Fill the visible viewport minus the 88px navbar. dvh accounts for
-       mobile browser chrome so the View cards button stays on-screen. */
-    height: calc(100dvh - 88px);
+    /* Never taller than the viewport minus the compact navbar (dvh accounts
+       for mobile browser chrome), but on a portrait phone that leaves the
+       bottom three quarters empty: the 2485x1355 artwork is fitted to width
+       by preserveAspectRatio, so it only ever renders 100vw * (1355/2485)
+       tall. Cap the container at that plus a 146px band for the zoom stack
+       (122px + its 24px inset), which pulls the cards up under the map
+       instead of below a screenful of background. */
+    height: min(
+      calc(100dvh - var(--nav-height-compact)),
+      calc(100vw * 0.545 + 146px)
+    );
     min-height: 0;
   }
 }

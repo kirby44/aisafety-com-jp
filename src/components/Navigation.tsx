@@ -19,8 +19,10 @@ const SCROLL_THRESHOLD_BLUR = 50
 
 export default function Navigation({
   counts,
+  compact = false,
 }: {
   counts: Partial<Record<string, number>>
+  compact?: boolean
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -165,7 +167,10 @@ export default function Navigation({
   }, [])
   return (
     <>
-      <div ref={navOuterRef} className={`${styles.nav} ${styles['nav-fixed']}`}>
+      <div
+        ref={navOuterRef}
+        className={`${styles.nav} ${styles['nav-fixed']} ${compact ? styles['nav-compact'] : ''}`}
+      >
         <div className={styles['nav-container']}>
           <Link
             href="https://www.aisafety.com/map"
