@@ -141,12 +141,45 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 8px 20px 8px 8px;
   background-color: #0e2628;
   border: 1px solid #394c4e;
   border-radius: 24px;
   box-shadow: 0px 12px 24px 0px rgba(0, 25, 27, 0.5);
+}
+
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px 8px 8px;
+}
+
+/* Collapsed chip. Hidden outside the mobile breakpoint, where there is room
+   for the full control. */
+.timeline-chip {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: inherit;
+  background: none;
+  cursor: pointer;
+  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: var(--white, #fff);
+  font-variant-numeric: tabular-nums;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.timeline-chip svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  color: var(--teal-300);
+  pointer-events: none;
 }
 
 .timeline-play {
@@ -236,12 +269,23 @@
      them — there isn't room for three controls on one row. */
   .timeline {
     bottom: 84px;
+  }
+
+  .timeline-controls {
     padding: 8px 16px 8px 8px;
     gap: 12px;
   }
 
   .timeline-slider {
     width: min(38vw, 180px);
+  }
+
+  .timeline:not(.timeline-expanded) .timeline-controls {
+    display: none;
+  }
+
+  .timeline:not(.timeline-expanded) .timeline-chip {
+    display: flex;
   }
 
   .map-container {
