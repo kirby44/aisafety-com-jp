@@ -21,7 +21,7 @@ Content lives in Airtable, not the codebase. To add or edit organisations:
 
 1. Open the base: https://airtable.com/app7SrMiNyaAyXB2L
 2. Edit the `Orgs` table directly, or approve pending submissions by setting `Status = Active`.
-3. Wait up to 1 hour for the next ISR revalidation, or trigger a redeploy for instant updates.
+3. Wait up to 1 hour for the next ISR revalidation (it fires on the next page visit after the hour), or trigger a redeploy for instant updates.
 
 Public submission form: https://airtable.com/app7SrMiNyaAyXB2L/pagzMWIQxAKKAyxU2/form
 
@@ -70,10 +70,16 @@ Generate the PAT at https://airtable.com/create/tokens with scopes `data.records
 `getMapData()` runs server-side at build and again on ISR revalidation:
 
 1. Fetches all records from the `Orgs` table view.
-2. Downloads every attachment to `public/images/airtable-cache/<attachmentId>.<ext>` (cache key is the Airtable attachment ID, so cache busts when a logo is replaced).
+2. Rewrites every attachment URL to `/api/logo/<attachmentId>` (see below).
 3. Sorts records by status → scale → category → title.
 
 ISR revalidation runs at most once per hour (`next: { revalidate: 3600 }` in `src/lib/data/airtable.ts`), and only triggers when the page is requested. If no one visits, nothing refetches. To force an immediate refresh, push a commit or use a Vercel deploy hook.
+
+### Logo proxy
+
+Airtable attachment URLs are signed and expire after about two hours, so they can't be embedded in a page that is cached for an hour or more. Instead, `src/app/api/logo/[id]/route.ts` resolves an attachment ID to a fresh URL at request time and streams the image back with an immutable `Cache-Control` header. The Vercel CDN then serves it from cache; Airtable is only called on a cache miss. Replacing a logo in Airtable produces a new attachment ID, so the new image is picked up without any cache purge.
+
+Nothing is written to disk at any point. An earlier version downloaded logos into `public/` during the request, which works at build time but crashes on Vercel's read-only function filesystem and silently froze the page at its last successful build.
 
 ## Getting Started
 
@@ -89,7 +95,7 @@ npm run dev
 
 ```bash
 npm run dev          # Start dev server
-npm run build        # Production build (fetches Airtable + downloads logos)
+npm run build        # Production build (fetches Airtable)
 npm run lint         # Run linting
 npm run format       # Format code
 npm run type-check   # Type check

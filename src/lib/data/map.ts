@@ -1,7 +1,18 @@
-import { fetchAirtableRecords } from './airtable'
+import {
+  fetchAirtableRecords,
+  fetchAirtableRecordsRaw,
+  isAttachmentArray,
+  type AirtableAttachment,
+} from './airtable'
 
 const TABLE_ID = 'tblBBaYyXaEQ7vsqm'
 const VIEW_ID = 'viwh7TofyxVBFq705'
+const LOGO_FIELDS = ['Logo (for cards)', 'Logo (for map)']
+
+// Lookup cache for the logo proxy. Kept well under Airtable's ~2h signed-URL
+// lifetime so a URL served from cache is normally still valid; the proxy
+// retries with `fresh: true` if it isn't.
+const LOGO_LOOKUP_REVALIDATE_SECONDS = 600
 
 const MAGIC_ROW_NAMES = ['Merch', 'Last updated', 'Suggest entry']
 
@@ -124,6 +135,30 @@ function compareCategoryIndices(a: number[], b: number[]): number {
     if (a[i] !== b[i]) return a[i] - b[i]
   }
   return a.length - b.length
+}
+
+// Resolves an attachment ID from either logo column to its current signed
+// Airtable URL. Returns null when no map record carries that attachment.
+export async function findMapLogoAttachment(
+  attachmentId: string,
+  { fresh = false }: { fresh?: boolean } = {}
+): Promise<AirtableAttachment | null> {
+  const records = await fetchAirtableRecordsRaw({
+    tableId: TABLE_ID,
+    viewId: VIEW_ID,
+    fields: LOGO_FIELDS,
+    revalidate: fresh ? 0 : LOGO_LOOKUP_REVALIDATE_SECONDS,
+  })
+
+  for (const record of records) {
+    for (const field of LOGO_FIELDS) {
+      const value = record.fields[field]
+      if (!isAttachmentArray(value)) continue
+      const match = value.find(a => a.id === attachmentId)
+      if (match) return match
+    }
+  }
+  return null
 }
 
 export async function getMapData(): Promise<MapData> {
