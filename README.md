@@ -19,6 +19,10 @@ Forked from [StampyAI/AISafety.com](https://github.com/StampyAI/AISafety.com) (M
 
 Content lives in Airtable, not the codebase. To add or edit organisations:
 
+The live page uses `src/lib/data/map.ts`. There is no local organisation-list
+adapter; do not add one. Local logo files and generated attachment caches do
+not define map entries.
+
 1. Open the base: https://airtable.com/app7SrMiNyaAyXB2L
 2. Edit the `Orgs` table directly, or approve pending submissions by setting `Status = Active`.
 3. Wait up to 1 hour for the next ISR revalidation, or trigger a redeploy for instant updates.
