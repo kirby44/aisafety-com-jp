@@ -230,7 +230,7 @@ export default function D3Map({ orgs, cutoffMonth }: D3MapProps) {
       .attr('font-size', 72)
       .style('letter-spacing', '-2.16px')
       .attr('fill', '#fff')
-      .text('Map of AI Existential Safety')
+      .text('Map of AI Existential Safety in Japan')
 
     // Add area labels
     const labelScale = 1.75
