@@ -1,5 +1,10 @@
 # AISafety.com – Webflow Migration
 
+> This repository is now the Japan map fork. For map content changes, follow
+> `AGENTS.md` and the README's "Editing the map" section: organisation records
+> live in Airtable and are loaded by `src/lib/data/map.ts`.
+> The migration guidance below is historical context for layout work.
+
 ## Goal
 
 Replicate the live site (aisafety.com) exactly in Next.js. This is a pixel-perfect migration, not a redesign. **The one exception:** when the designer has made a change (visible in CSS guides, design files, etc.), follow the designer's version rather than the live site.
