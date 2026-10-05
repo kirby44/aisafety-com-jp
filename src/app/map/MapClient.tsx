@@ -71,13 +71,19 @@ const PLAY_EVENT_MS = 850
 interface MapClientProps {
   orgs: MapOrg[]
   lastUpdated: string | null
-  suggestEntryLink: string
+  suggestEntryLink: string | null
+  mapTitle: string
+  rawDataUrl: string | null
+  notice: string
 }
 
 export default function MapClient({
   orgs,
   lastUpdated,
   suggestEntryLink,
+  mapTitle,
+  rawDataUrl,
+  notice,
 }: MapClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -258,9 +264,14 @@ export default function MapClient({
 
   return (
     <>
+      {notice && (
+        <div className="container-default padding-bottom-24px">
+          <p className="paragraph-small color-teal-300">{notice}</p>
+        </div>
+      )}
       <div className="padding-bottom-24px">
         <div ref={mapWrapperRef} className={styles['map-wrapper']}>
-          <D3Map orgs={mapOrgs} cutoffMonth={cutoffMonth} />
+          <D3Map orgs={mapOrgs} cutoffMonth={cutoffMonth} mapTitle={mapTitle} />
           <Timeline
             months={months}
             index={monthIndex}
@@ -392,13 +403,17 @@ export default function MapClient({
             <ContributeButtons
               suggestEntryUrl={suggestEntryLink}
               suggestEntryDescription="Suggest a resource to be published here"
-              extraLinks={[
-                {
-                  label: 'View raw data',
-                  description: 'See the database in Airtable',
-                  url: 'https://airtable.com/app7SrMiNyaAyXB2L/shrRSvwCS5BGzuYYe',
-                },
-              ]}
+              extraLinks={
+                rawDataUrl
+                  ? [
+                      {
+                        label: 'View raw data',
+                        description: 'See the database in Airtable',
+                        url: rawDataUrl,
+                      },
+                    ]
+                  : []
+              }
             />
           </div>
         </div>

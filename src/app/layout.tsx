@@ -6,6 +6,7 @@ import './globals.css'
 import LayoutShell from '@/components/LayoutShell'
 import MatomoRouteTracker from '@/components/MatomoRouteTracker'
 import { fetchAllCounts } from '@/lib/data/counts'
+import { getSiteConfig } from '@/lib/site-config'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,29 +18,30 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://aisafety.com'),
-  title: 'AISafety.com',
-  description:
-    'The hub for AI existential safety, providing resources to help you learn about and help mitigate the risks from advanced AI.',
-  icons: {
-    icon: '/images/favicon.png',
-    apple: '/images/webclip.png',
-  },
-  openGraph: {
-    title: 'AISafety.com',
-    description:
-      'The hub for AI existential safety, providing resources to help you learn about and help mitigate the risks from advanced AI.',
-    images: [{ url: '/images/link-preview.png' }],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AISafety.com',
-    description:
-      'The hub for AI existential safety, providing resources to help you learn about and help mitigate the risks from advanced AI.',
-    images: ['/images/link-preview.png'],
-  },
+export function generateMetadata(): Metadata {
+  const site = getSiteConfig()
+  return {
+    metadataBase: new URL(site.url),
+    title: site.title,
+    description: site.description,
+    icons: {
+      icon: '/images/favicon.png',
+      apple: '/images/webclip.png',
+    },
+    openGraph: {
+      title: site.title,
+      description: site.description,
+      url: new URL('/map', site.url),
+      images: [{ url: '/images/link-preview.png' }],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: site.title,
+      description: site.description,
+      images: ['/images/link-preview.png'],
+    },
+  }
 }
 
 export default async function RootLayout({
@@ -48,9 +50,10 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const counts = await fetchAllCounts()
+  const site = getSiteConfig()
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={site.language} suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
         <script
           dangerouslySetInnerHTML={{

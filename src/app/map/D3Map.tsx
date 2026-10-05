@@ -24,6 +24,7 @@ interface MapOrg {
 
 interface D3MapProps {
   orgs: MapOrg[]
+  mapTitle: string
   // 'YYYY-MM' — hide entities that weren't active yet in that month. null
   // shows everything.
   cutoffMonth?: string | null
@@ -83,7 +84,7 @@ function isActiveAt(activeSince: string | null, cutoffMonth?: string | null) {
   return activeSince.slice(0, 7) <= cutoffMonth
 }
 
-export default function D3Map({ orgs, cutoffMonth }: D3MapProps) {
+export default function D3Map({ orgs, cutoffMonth, mapTitle }: D3MapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
 
@@ -230,7 +231,7 @@ export default function D3Map({ orgs, cutoffMonth }: D3MapProps) {
       .attr('font-size', 72)
       .style('letter-spacing', '-2.16px')
       .attr('fill', '#fff')
-      .text('Map of AI Existential Safety in Japan')
+      .text(mapTitle)
 
     // Add area labels
     const labelScale = 1.75
@@ -466,7 +467,7 @@ export default function D3Map({ orgs, cutoffMonth }: D3MapProps) {
         d3.select(container).select('svg').remove()
       }
     }
-  }, [orgs])
+  }, [orgs, mapTitle])
 
   // Timeline visibility. Kept out of the render effect above so scrubbing
   // fades icons in and out instead of tearing down and rebuilding the SVG

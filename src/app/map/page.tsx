@@ -1,20 +1,19 @@
 import MapClient from './MapClient'
 import { getMapData } from '@/lib/data/map'
-
-export const metadata = {
-  title: 'Field Map – AISafety.com',
-  description:
-    'An overview of the key organizations, programs, and projects operating in the AI safety space.',
-}
+import { getSiteConfig } from '@/lib/site-config'
 
 export default async function MapPage() {
   const { records, lastUpdated, suggestEntryLink } = await getMapData()
+  const site = getSiteConfig()
 
   return (
     <MapClient
       orgs={records}
       lastUpdated={lastUpdated}
       suggestEntryLink={suggestEntryLink}
+      mapTitle={site.mapTitle}
+      rawDataUrl={site.rawDataUrl}
+      notice={site.notice}
     />
   )
 }

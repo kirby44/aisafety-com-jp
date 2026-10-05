@@ -5,8 +5,7 @@ import {
   type AirtableAttachment,
 } from './airtable'
 
-const TABLE_ID = 'tblBBaYyXaEQ7vsqm'
-const VIEW_ID = 'viwh7TofyxVBFq705'
+import { getMapSourceConfig } from '@/lib/site-config'
 const LOGO_FIELDS = ['Logo (for cards)', 'Logo (for map)']
 
 // Lookup cache for the logo proxy. Kept well under Airtable's ~2h signed-URL
@@ -61,7 +60,7 @@ export interface MapOrg {
 export interface MapData {
   records: MapOrg[]
   lastUpdated: string | null
-  suggestEntryLink: string
+  suggestEntryLink: string | null
 }
 
 const FIELD_LIST = [
@@ -144,8 +143,7 @@ export async function findMapLogoAttachment(
   { fresh = false }: { fresh?: boolean } = {}
 ): Promise<AirtableAttachment | null> {
   const records = await fetchAirtableRecordsRaw({
-    tableId: TABLE_ID,
-    viewId: VIEW_ID,
+    ...getMapSourceConfig(),
     fields: LOGO_FIELDS,
     revalidate: fresh ? 0 : LOGO_LOOKUP_REVALIDATE_SECONDS,
   })
@@ -163,14 +161,13 @@ export async function findMapLogoAttachment(
 
 export async function getMapData(): Promise<MapData> {
   const raw = await fetchAirtableRecords({
-    tableId: TABLE_ID,
-    viewId: VIEW_ID,
+    ...getMapSourceConfig(),
     fields: FIELD_LIST,
   })
 
   const allRecords: MapOrg[] = []
   let lastUpdated: string | null = null
-  let suggestEntryLink = '/map/suggest'
+  let suggestEntryLink: string | null = null
 
   for (const record of raw) {
     const fields = record.fields as AirtableRecord['fields']
